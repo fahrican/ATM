@@ -72,5 +72,7 @@ public class Konto {
 
     public boolean abbuchen(int betrag){
 
+        //TODO: implement method
     }
+
 }

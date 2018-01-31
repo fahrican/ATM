@@ -83,6 +83,7 @@ public class Karte {
 
     public void abbuchen(Konto k, int betrag) {
 
+        //TODO: implement method
         if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
 
             if () {
