@@ -10,7 +10,6 @@ public class Karte {
     private Konto konto;
     private float maxProTag = 500;
     private Date date;
-    private float maxProWoche;
     private Eigentümer eigentümer;
 
     public Karte(int code, int id, KartenTyp kartenTyp, Konto konto, Eigentümer eigentümer) {
@@ -53,7 +52,7 @@ public class Karte {
         return maxProTag;
     }
 
-    public void setMaxProTag(float betrag, Date date) {
+    public boolean setMaxProTag(int betrag, Date date) {
 
         if (this.getDate().compareTo(date) == 0){
 
@@ -61,9 +60,11 @@ public class Karte {
 
                 this.maxProTag -= betrag;
                 System.out.println(betrag + " wurden abgebucht, Sie können heute noch " + this.getMaxProTag() + "€ abbuchen.");
+                return true;
             }
             else {
-                System.out.println("Sie haben Ihr Tageslimit bereits überschritten, kommen Sie morgen wieder.");
+                System.out.println("Sie haben Ihr Tageslimit für ihr Studentenkonto bereits überschritten, kommen Sie morgen wieder.");
+                return false;
             }
         }
         else {
@@ -72,28 +73,42 @@ public class Karte {
 
                 this.maxProTag -= betrag;
                 System.out.println(betrag + " wurden abgebucht, Sie können heute noch " + this.getMaxProTag() + "€ abbuchen.");
+                return true;
             }
         }
-
+        return false;
     }
 
-    public float getMaxProWoche() {
-        return maxProWoche;
-    }
 
-    public void abbuchen(Konto k, int betrag) {
+    public void abbuchen(Konto k, int betrag, int code, Date date) {
 
-        //TODO: implement method
-        if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
+        //TODO: implement vom Konto abbuchen
 
-            if () {
+        if (this.authentifizieren(code)){
 
-                System.out.println();
+            if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
+
+                if (this.setMaxProTag(betrag, date)) {
+
+
+                }
+                else {
+                    System.out.println("Sie haben Ihr Tageslimit für ihr Studentenkonto bereits überschritten, kommen Sie morgen wieder.");
+                }
+            }
+            else if (k.getKontoTyp() == KontoTyp.BUSINESSKONTO){
+
             }
         }
+        else {
+            System.out.println("Falscher PIN!!");
+        }
+
+
     }
 
     public boolean authentifizieren(int code) {
 
+        return (code == this.getCode()) ? true : false;
     }
 }

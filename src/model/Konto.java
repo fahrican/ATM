@@ -12,10 +12,9 @@ public class Konto {
     private List<Karte> karten = new ArrayList<Karte>();
     private List<Buchung> buchungen = new ArrayList<Buchung>();
 
-    public Konto(float kontostand, KontoTyp kontoTyp, float kreditrahmen, Eigentümer eigentümer) {
+    public Konto(float kontostand, KontoTyp kontoTyp, Eigentümer eigentümer) {
         this.kontostand = kontostand;
         this.kontoTyp = kontoTyp;
-        this.kreditrahmen = kreditrahmen;
         this.eigentümer = eigentümer;
     }
 
@@ -36,7 +35,8 @@ public class Konto {
     }
 
     public float getKreditrahmen() {
-        return kreditrahmen;
+
+        return (this.getKontoTyp() == KontoTyp.STUDENTENKONTO) ? 500.00f : 10000.00f;
     }
 
     public void addKarte(Karte karte){
