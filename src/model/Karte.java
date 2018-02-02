@@ -52,7 +52,8 @@ public class Karte {
         return maxProTag;
     }
 
-    public boolean setMaxProTag(int betrag, Date date) {
+    //only valid for students
+    private boolean setMaxProTag(int betrag, Date date) {
 
         if (this.getDate().compareTo(date) == 0){
 
@@ -82,33 +83,42 @@ public class Karte {
 
     public void abbuchen(Konto k, int betrag, int code, Date date) {
 
-        //TODO: implement vom Konto abbuchen
-
         if (this.authentifizieren(code)){
 
-            if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
-
-                if (this.setMaxProTag(betrag, date)) {
-
-
-                }
-                else {
-                    System.out.println("Sie haben Ihr Tageslimit für ihr Studentenkonto bereits überschritten, kommen Sie morgen wieder.");
-                }
-            }
-            else if (k.getKontoTyp() == KontoTyp.BUSINESSKONTO){
-
-            }
+            checkKontoTyp(k, betrag, date);
         }
         else {
             System.out.println("Falscher PIN!!");
         }
-
-
     }
 
     public boolean authentifizieren(int code) {
 
         return (code == this.getCode()) ? true : false;
+    }
+
+    //checks if the bank account is for a students or business client
+    private void checkKontoTyp(Konto k, int betrag, Date date){
+
+        if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
+
+            if (this.setMaxProTag(betrag, date)) {
+
+                if (this.getKonto().abbuchen(betrag)) {
+
+                    this.getKonto().abbuchen(betrag);
+                }
+            }
+            else {
+                System.out.println("Sie haben Ihr Tageslimit für ihr Studentenkonto bereits überschritten, kommen Sie morgen wieder.");
+            }
+        }
+        else if (k.getKontoTyp() == KontoTyp.BUSINESSKONTO){
+
+            if (this.getKonto().abbuchen(betrag)) {
+
+                this.getKonto().abbuchen(betrag);
+            }
+        }
     }
 }

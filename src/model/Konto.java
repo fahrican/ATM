@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Konto {
@@ -26,8 +27,9 @@ public class Konto {
         return kontostand;
     }
 
-    public void setKontostand(float kontostand) {
-        this.kontostand = kontostand;
+    public float setKontostand(float betrag) {
+        this.kontostand -= betrag;
+        return this.getKontostand();
     }
 
     public KontoTyp getKontoTyp() {
@@ -70,9 +72,23 @@ public class Konto {
         return this.buchungen.get(position);
     }
 
+    /*
+    * checks if the amount to draw of money is more
+    * than the amount of money in the bank account
+    * */
     public boolean abbuchen(int betrag){
 
-        //TODO: implement method
+        if (betrag > this.getKontostand()){
+
+            if (this.setKontostand(betrag) >= this.getKreditrahmen()) {
+                this.setKontostand(betrag);
+                this.buchungen.add(new Buchung(new Date(), karten.get(0).getId(), betrag));
+                return true;
+            }
+            return false;
+        }
+        this.setKontostand(betrag);
+        return true;
     }
 
 }
