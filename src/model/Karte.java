@@ -113,7 +113,7 @@ public class Karte {
         return (code == this.getCode()) ? true : false;
     }
 
-    //checks if the bank account is for a students or business client
+    //checks if the bank account is for a students or business client, there is a logic bug!!
     private void checkKontoTyp(Konto k, int betrag, Date date){
 
         if (k.getKontoTyp() == KontoTyp.STUDENTENKONTO) {
@@ -132,7 +132,7 @@ public class Karte {
         else if (k.getKontoTyp() == KontoTyp.BUSINESSKONTO){
 
             if (this.getKonto().abbuchen(betrag)) {
-                //TODO: fix ugly code
+                //TODO: fix ugly code!
             }
         }
     }
