@@ -132,8 +132,7 @@ public class Karte {
         else if (k.getKontoTyp() == KontoTyp.BUSINESSKONTO){
 
             if (this.getKonto().abbuchen(betrag)) {
-
-                this.getKonto().abbuchen(betrag);
+                //TODO: fix ugly code
             }
         }
     }

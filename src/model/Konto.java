@@ -87,7 +87,10 @@ public class Konto {
             }
             return false;
         }
-        this.setKontostand(betrag);
+        else {
+
+            this.setKontostand(betrag);
+        }
         return true;
     }
 

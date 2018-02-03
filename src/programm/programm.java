@@ -37,11 +37,11 @@ public class programm {
             switch (userInput) {
 
                 case 1:
-                    System.out.println("Ihr Kreditrahmen beträgt: " + aykutKonto.getKreditrahmen() + "€\n");
+                    System.out.printf("Ihr Kreditrahmen beträgt: %.2f€\n\n", aykutKonto.getKreditrahmen());
                     break;
 
                 case 2:
-                    System.out.println("Ihr Kontostand: " + aykutKonto.getKontostand() + "€\n");
+                    System.out.printf("Ihr Kontostand: %.2f€\n\n", aykutKonto.getKontostand());
                     break;
 
                 case 3:
@@ -51,7 +51,7 @@ public class programm {
                     int geldBetrag = scanner.nextInt();
                     if (atm.abbuchen(aykutKarte, geldBetrag, pin)){
                         System.out.println("Es werden " + geldBetrag + " abgehoben.");
-                        System.out.println("Ihr Kontostand: " + aykutKonto.getKontostand() + "€\n");
+                        System.out.printf("Ihr Kontostand: %.2f€\n\n", aykutKonto.getKontostand());
                     }
                     else {
                         atm.abbuchen(aykutKarte, geldBetrag, pin);
@@ -59,7 +59,7 @@ public class programm {
                     break;
 
                 case 4:
-                    System.out.println("Im Bankomaten sind noch " + atm.getGeldbestand() + "€\n");
+                    System.out.printf("Im Bankomaten sind noch %.2f€\n\n", atm.getGeldbestand());
                     break;
 
                 default:
