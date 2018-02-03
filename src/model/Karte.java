@@ -12,12 +12,26 @@ public class Karte {
     private Date date;
     private Eigentümer eigentümer;
 
-    public Karte(int code, int id, KartenTyp kartenTyp, Konto konto, Eigentümer eigentümer) {
+    public Karte(int code, int id, KartenTyp kartenTyp) {
         this.code = code;
         this.id = id;
         this.kartenTyp = kartenTyp;
-        this.konto = konto;
-        this.eigentümer = eigentümer;
+    }
+
+    public void setKonto(Konto konto) {
+
+        if (konto != null){
+
+            this.konto = konto;
+        }
+    }
+
+    public void setEigentümer(Eigentümer eigentümer) {
+
+        if (eigentümer != null){
+
+            this.eigentümer = eigentümer;
+        }
     }
 
     public Date getDate() {
@@ -81,15 +95,17 @@ public class Karte {
     }
 
 
-    public void abbuchen(Konto k, int betrag, int code, Date date) {
+    public boolean abbuchen(Konto k, int betrag, int code, Date date) {
 
         if (this.authentifizieren(code)){
 
             checkKontoTyp(k, betrag, date);
+            return true;
         }
         else {
             System.out.println("Falscher PIN!!");
         }
+        return false;
     }
 
     public boolean authentifizieren(int code) {

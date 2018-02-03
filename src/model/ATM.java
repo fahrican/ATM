@@ -1,15 +1,23 @@
 package model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ATM {
 
     private String bezeichnung;
     private float geldbestand;
     private int id;
+    private Date date = Calendar.getInstance().getTime();
 
     public ATM(String bezeichnung, float geldbestand, int id) {
         this.bezeichnung = bezeichnung;
         this.geldbestand = geldbestand;
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public String getBezeichnung() {
@@ -24,9 +32,11 @@ public class ATM {
         return id;
     }
 
-    public void abbuchen(Karte k, float geldBetrag) {
-        //TODO: finish implementation
-        k.abbuchen(k.getKonto(), );
+    public boolean abbuchen(Karte k, int geldBetrag, int code) {
+        if (k.abbuchen(k.getKonto(), geldBetrag, code, getDate())) {
+            return true;
+        }
+        return false;
     }
 
     public void limitAbfragen(Karte k) {
@@ -38,4 +48,5 @@ public class ATM {
             System.out.println("Ihr Überziehungsrahmen beträgt -10.000€");
         }
     }
+
 }
